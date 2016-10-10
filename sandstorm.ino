@@ -33,6 +33,11 @@ float path[PATH_LENGTH][3] = {{ 2.3,  0.6, 0.10 },
 
 const float E_ROT = 0.2; //Margin of error for all rotations
 
+//The following are multiplied by the current error to determine
+//  motor power, acting as a "gain" a pseudo-pid approach
+const float ROT_KP = 300, //Rotational porportionality constant
+            LIN_KP = 1000; //Linear porportionality constant
+            
 SoftwareSerial sSerial(PIN_RX, PIN_TX);
 enes100::RfClient<SoftwareSerial> rf(&sSerial);
 enes100::Marker marker;

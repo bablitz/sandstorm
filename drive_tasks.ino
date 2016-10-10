@@ -1,7 +1,4 @@
-//The following are multiplied by the current error to determine
-//  motor power, acting as a "gain" a pseudo-pid approach
-const float ROT_KP = 300, //Rotational porportionality constant
-            LIN_KP = 1000; //Linear porportionality constant
+
 
 void turnToNode(float xNode, float yNode, float xPrev, float yPrev, float margin) {
   
