@@ -1,5 +1,8 @@
+#ifndef RF_UTIL_H_
+#define RF_UTIL_H_
+
 #include <SoftwareSerial.h>
-#include "enes100.h"
+#include <enes100.h>
 
 void sendf(enes100::RfClient<SoftwareSerial> * rf, String s1, int n, String s2) {
 	rf->sendMessage(s1);
@@ -27,3 +30,5 @@ void sendf(enes100::RfClient<SoftwareSerial> * rf, String s1) {
 	rf->sendMessage(s1);
 	rf->sendMessage("\n");
 }
+
+#endif
