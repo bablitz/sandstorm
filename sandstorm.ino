@@ -68,5 +68,6 @@ void updateMarker() {
   
   while (!rf.receiveMarker(&marker, MARKER)) {
     sendf(&rf, "Failed to receive marker");
+    delay(100);
   }
 }
