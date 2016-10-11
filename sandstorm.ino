@@ -55,12 +55,15 @@ void setup() {
   Serial.begin(9600);
   pinMode(PIN_RX, INPUT);
   pinMode(PIN_TX, OUTPUT);
-
+  
+  delay(1000);
+  
   rf.resetServer();
+
   sendf(&rf, "Team Sandstorm is Connected");
   Serial.println("Team Sandstorm is Connected");
 
-  delay(1000);
+  delay(500);
   
   followPath(path, PATH_LENGTH);
 }
