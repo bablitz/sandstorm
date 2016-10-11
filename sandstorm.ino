@@ -38,6 +38,9 @@ const float E_ROT = 0.2; //Margin of error for all rotations
 const float ROT_KP = 300, //Rotational porportionality constant
             LIN_KP = 1000; //Linear porportionality constant
             
+const float DRIVE_TIME = 1000, //Amount of time(ms)the robot will drive
+            TURN_TIME = 500; //Amount of time(ms)the robot will turn
+            
 SoftwareSerial sSerial(PIN_RX, PIN_TX);
 enes100::RfClient<SoftwareSerial> rf(&sSerial);
 enes100::Marker marker;
@@ -63,11 +66,3 @@ void setup() {
 }
 
 void loop() {}
-
-void updateMarker() {
-  
-  while (!rf.receiveMarker(&marker, MARKER)) {
-    sendf(&rf, "Failed to receive marker");
-    delay(100);
-  }
-}

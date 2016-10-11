@@ -1,33 +1,34 @@
 
 void followPath(float path[][3], int pathLength) {
-  
-  //Set starting node
-  updateMarker();
-  float xPrev = marker.x;
-  float yPrev = marker.y;
-  
+
+  float linearError, rotationError;
   //Repeat process to travel to each node
   for (int node = 0; node < pathLength; node++) {
     
     //Repeat turn/drive proces MAX_DRIVE times
     sendf(&rf, "Now traveling to Node ", node, "...");
-    for (int i = 0; i < MAX_DRIVE; i++) {
+    linearError = getLinearError(path[node][X], path[node][Y]);
+    while (linearError >= path[node][E]) {
       
       //Repeat turn MAX_TURN times
-      for (int j = 0; j < MAX_TURNS; j++) {
-        //Exexute turn
-        sendf(&rf, "--Starting Turn ", j, "...");
-        turnToNode(path[node][X], path[node][Y], xPrev, yPrev, E_ROT);
+      rotationError = getRotationError(path[node][X], path[node][Y]);
+      while (abs(rotationError) >= E_ROT) {
+        
+        //Execute turn
+        sendf(&rf, "--Starting Turn with error ", rotationError);
+        turnToNode(TURN_TIME, rotationError);
+
+        //Update rotation error
+        rotationError = getRotationError(path[node][X], path[node][Y]);
       }
 
       //Execute drive
-      sendf(&rf, "-Starting Drive ", i, "...");
-      driveToNode(path[node][X], path[node][Y], xPrev, yPrev, path[node][E]);
+      sendf(&rf, "-Starting Drive with error ", linearError);
+      driveToNode(DRIVE_TIME, linearError);
 
-      //Reset starting node
-      updateMarker();
-      xPrev = marker.x;
-      yPrev = marker.y;
+      //Update linear error
+      linearError = getLinearError(path[node][X], path[node][Y]);
+      
     }
   }
 

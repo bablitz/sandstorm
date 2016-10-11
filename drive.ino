@@ -1,20 +1,10 @@
 const float PWM_MAX = 255;
-const float PWM_MIN = -256;
-
-//DFRTank tank;
-
-
-void setSpeedRight(float pwm) {
-  //TODO: Add code to set motor speed within proper range
-}
-
-void setSpeedLeft(float pwm) {
-  //TODO: Add code to set motor speed within proper range
-}
+const float PWM_MIN = -255;
 
 void drive(float left, float right) {
-  setSpeedLeft(left);
-  setSpeedRight(right);
+  //Set motor to power with constraints
+  tank.setLeftMotorPWM(constrain(left, PWM_MIN, PWM_MAX));
+  tank.setRightMotorPWM(constrain(right, PWM_MIN, PWM_MAX));
 }
 
 void driveForward(float pwm) {
@@ -25,7 +15,30 @@ void turnRight(float pwm) {
   drive(pwm, -pwm);
 }
 
-void driveStop() {
+void stopMotors() {
   drive(0, 0);
 }
 
+void turnToNode(float duration, float rotationError) {
+  
+  //Set motor to power proportional to error
+  turnRight(ROT_KP * rotationError);
+  
+  //Turn to target for set amount of time
+  delay(duration);
+  
+  //Reset motor power to zero
+  stopMotors();
+}
+
+void driveToNode(float duration, float linearError) {
+
+  //Set motor to power proportional to error
+  driveForward(LIN_KP * linearError);
+
+  //Drive to target for set amount of time
+  delay(duration);
+  
+  //Reset motor power to zero
+  stopMotors();
+}
