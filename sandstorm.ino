@@ -4,10 +4,8 @@
 
 #include <dfr_tank.h>
 #include <SoftwareSerial.h>
-#include <enes100.h>
-#include <enes100_marker.h>
-#include <enes100_rf_client.h>
-#include <rf_util.h>
+#include "enes100.h"
+#include "rf_util.h"
 
 //---------------------------Definitions--------------------------
 
@@ -15,7 +13,7 @@
 #define PIN_RX 8
 #define PIN_TX 9
 
-#define MARKER 11 //Number of RF Marker Board
+#define MARKER 18 //Number of RF Marker Board
 
 #define PATH_LENGTH 3 //Number of nodes in path
 #define X 0 //The x coordinate of a node
@@ -31,7 +29,7 @@ float path[PATH_LENGTH][3] = {{ 2.3,  0.6, 0.10 },
                               { 2.3,  0.6, 0.10 },
                               { 2.3,  0.6, 0.10 }};
 
-const float E_ROT = 0.2; //Margin of error for all rotations
+const float E_ROT = 0.3; //Margin of error for all rotations
 
 //The following are multiplied by the current error to determine
 //  motor power, acting as a "gain" a pseudo-pid approach
@@ -40,6 +38,8 @@ const float ROT_KP = 300, //Rotational porportionality constant
             
 const float DRIVE_TIME = 1000, //Amount of time(ms)the robot will drive
             TURN_TIME = 500; //Amount of time(ms)the robot will turn
+
+const float RF_LATENCY = 1500; //Approximate latency of marker receiver
             
 SoftwareSerial sSerial(PIN_RX, PIN_TX);
 enes100::RfClient<SoftwareSerial> rf(&sSerial);

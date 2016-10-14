@@ -38,6 +38,9 @@ float getRotationError(float xNode, float yNode) {
 }
 
 void updateMarker() {
+
+  //Account for latency of RF sensor
+  delay(RF_LATENCY);
   
   while (!rf.receiveMarker(&marker, MARKER)) {
     sendf(&rf, "Failed to receive marker");

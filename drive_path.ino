@@ -15,7 +15,7 @@ void followPath(float path[][3], int pathLength) {
       while (abs(rotationError) >= E_ROT) {
         
         //Execute turn
-        sendf(&rf, "--Starting Turn with error ", rotationError);
+        sendf(&rf, "--Starting Turn with error of ", rotationError);
         turnToNode(TURN_TIME, rotationError);
 
         //Update rotation error
@@ -23,7 +23,7 @@ void followPath(float path[][3], int pathLength) {
       }
 
       //Execute drive
-      sendf(&rf, "-Starting Drive with error ", linearError);
+      sendf(&rf, "-Starting Drive with error of ", linearError);
       driveToNode(DRIVE_TIME, linearError);
 
       //Update linear error

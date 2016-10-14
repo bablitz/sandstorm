@@ -11,8 +11,8 @@ void driveForward(float pwm) {
   drive(pwm, pwm);
 }
 
-void turnRight(float pwm) {
-  drive(pwm, -pwm);
+void turnLeft(float pwm) {
+  drive(-pwm, pwm);
 }
 
 void stopMotors() {
@@ -22,7 +22,7 @@ void stopMotors() {
 void turnToNode(float duration, float rotationError) {
   
   //Set motor to power proportional to error
-  turnRight(ROT_KP * rotationError);
+  turnLeft(ROT_KP * rotationError);
   
   //Turn to target for set amount of time
   delay(duration);
