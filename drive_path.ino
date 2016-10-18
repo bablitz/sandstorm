@@ -12,7 +12,7 @@ void followPath(float path[][3], int pathLength) {
       
       //Repeat turn MAX_TURN times
       rotationError = getRotationError(path[node][X], path[node][Y]);
-      while (abs(rotationError) >= E_ROT) {
+      while (rotationError >= E_ROT || rotationError <= -E_ROT) {
         
         //Execute turn
         sendf(&rf, "--Starting Turn with error of ", rotationError);
