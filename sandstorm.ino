@@ -15,14 +15,23 @@
 
 #define MARKER 104 //Number of RF Marker Board
 
+#define M_LEFT 0
+#define M_RIGHT 1
+#define M_LIFT 2
+#define M_COUNT 3
+#define CTRL_IN1 0
+#define CTRL_IN2 1
+#define CTRL_PWM 2
+//motorPin: a list for pins for each motor
+//                          IN1  IN2 PWM
+int motorPin[M_COUNT][3] = {{7,   8,  9}, // Left Motor
+                            {12, 11, 10}, // Right Motor
+                            {13,  6,  5}};// Lift Motor
+
 #define PATH_LENGTH 1 //Number of nodes in path
 #define X 0 //The x coordinate of a node
 #define Y 1 //The y coordinate of a node
 #define E 2 //The margin of linear error when driving to a node
-
-#define MAX_TURNS 2 //Maximum number of times osv corrects its rotation
-#define MAX_DRIVE 1 //Maximum number of times osv corrects its position
-
 //path: a list of nodes for the robot to follow (x, y, error margin)
 //                               X     Y     E
 float path[PATH_LENGTH][3] = {{ 2.0,  1.0, 0.10 }};
