@@ -1,9 +1,11 @@
+
 //Sandstorm.ino
 //Authors: Bennett Blitz, Tom Condrom
 //ENES100-0602
 
 #include <dfr_tank.h>
 #include <SoftwareSerial.h>
+#include <SparkFunISL29125.h>
 #include "enes100.h"
 #include "rf_util.h"
 
@@ -54,6 +56,8 @@ enes100::Marker marker;
 
 DFRTank tank;
 
+SFE_ISL29125 rgb;
+
 //----------------------------------------------------------------
 
 void setup() {
@@ -72,7 +76,26 @@ void setup() {
 
   delay(500);
   
-  followPath(path, PATH_LENGTH);
+  //followPath(path, PATH_LENGTH);
+  rgb.init();
 }
 
-void loop() {}
+void loop() {
+  //TEST HERE:
+
+  unsigned int red = rgb.readRed();
+  Serial.print("Red: "); Serial.println(red);
+//  stopMotors();
+//  delay(1000);
+//  
+//  driveForward(-255);
+//  delay(1000);
+//
+//  stopMotors();
+//  delay(1000);
+//  
+//  driveForward(255);
+//  delay(5000);
+
+  
+}
