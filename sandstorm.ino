@@ -30,13 +30,18 @@ int motorPin[M_COUNT][3] = {{7,   8,  9}, // Left Motor
                             {12, 11, 10}, // Right Motor
                             {13,  6,  5}};// Lift Motor
 
-#define PATH_LENGTH 1 //Number of nodes in path
 #define X 0 //The x coordinate of a node
 #define Y 1 //The y coordinate of a node
 #define E 2 //The margin of linear error when driving to a node
 //path: a list of nodes for the robot to follow (x, y, error margin)
-//                               X     Y     E
-float path[PATH_LENGTH][3] = {{ 2.0,  1.0, 0.10 }};
+//                                                X     Y     E
+#define WALL_BOTTOM 1 //Number of nodes in path
+float wallBottom[WALL_BOTTOM][3]          = {{ 0.50,  0.31, 0.10 }};
+#define AROUND_OBSTACLE 4 //Number of nodes in path
+float aroundObstacle[AROUND_OBSTACLE][3]    = {{ 0.50,  1.69, 0.10 }};
+#define THROUGH_OBSTACLE 2 //Number of nodes in path
+float throughObstacle[THROUGH_OBSTACLE][3]  = {{ 1.50,  0.31, 0.10 },
+                                               { 2.30,  0.60, 0.15 }};
 
 const float E_ROT = 0.3; //Margin of error for all rotations
 
@@ -76,7 +81,7 @@ void setup() {
 
   delay(500);
   
-  //followPath(path, PATH_LENGTH);
+  taskGeneral();
   rgb.init();
 }
 
