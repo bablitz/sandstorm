@@ -21,7 +21,22 @@ void setup() {
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
 }
- 
+bool isWallPresent()
+{
+   // getDistance returns a number in meters
+   // Wall is at distance 1 meter from left edge of grid
+   if((getDistance)<1)
+   {
+    return(true)
+   }
+   else
+   {
+      return(false)    
+   }
+}
+
+
+
 long getDistance()
 {
   // The sensor is triggered by a HIGH pulse of 10 or more microseconds.
