@@ -12,51 +12,42 @@
  
 int trigPin = 11;    //Trig - green Jumper
 int echoPin = 0;    //Echo - yellow Jumper   (Analog Pin)
-long duration, cm, meters;
- 
-void setup() {
-  //Serial Port begin
-  Serial.begin (9600);
-  //Define inputs and outputs
-  pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
-}
+long duration;
+float cm, meters;
+
 bool isWallPresent()
 {
-   // getDistance returns a number in meters
-   // Wall is at distance 1 meter from left edge of grid
-   if((getDistance)<1)
-   {
-    return(true)
-   }
-   else
-   {
-      return(false)    
-   }
+  // Wall is at distance 1 meter from left edge of grid
+  if (getDistance() < 1.0) {
+    return true;
+  }
+  else {
+    return false;    
+  }
 }
 
 
 
-long getDistance()
-{
+// getDistance returns a number in meters
+float getDistance() {
   // The sensor is triggered by a HIGH pulse of 10 or more microseconds.
   // Give a short LOW pulse beforehand to ensure a clean HIGH pulse:
-  digitalWrite(trigPin, LOW);
+  digitalWrite(PIN_TRIG1, LOW);
   delayMicroseconds(5);
-  digitalWrite(trigPin, HIGH);
+  digitalWrite(PIN_TRIG1, HIGH);
   delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
+  digitalWrite(PIN_TRIG1, LOW);
   // Read the signal from the sensor: a HIGH pulse whose
   // duration is the time (in microseconds) from the sending
   // of the ping to the reception of its echo off of an object.
-  pinMode(echoPin, INPUT);
-  duration = pulseIn(echoPin, HIGH);
- 
-  // convert the time into a distance
-  cm = (duration/2) / 29.1;
-  meters = cm*100;
+  pinMode(PIN_ECHO1, INPUT);
+  duration = pulseIn(PIN_ECHO1, HIGH);
   
-  return(meters);
+  // convert the time into a distance
+  cm = 0.5 * duration / 29.1;
+  meters = cm * 100.0;
+  
+  return meters;
   Serial.println();
   delay(250);
 }

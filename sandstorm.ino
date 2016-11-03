@@ -14,6 +14,8 @@
 //Pin Definitions
 #define PIN_RX 8
 #define PIN_TX 9
+#define PIN_TRIG1 11
+#define PIN_ECHO1 0
 
 #define MARKER 104 //Number of RF Marker Board
 
@@ -71,6 +73,8 @@ void setup() {
   Serial.begin(9600);
   pinMode(PIN_RX, INPUT);
   pinMode(PIN_TX, OUTPUT);
+  pinMode(PIN_TRIG1, OUTPUT);
+  pinMode(PIN_ECHO1, INPUT);
   
   delay(1000);
   

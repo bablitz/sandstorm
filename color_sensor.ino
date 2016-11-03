@@ -27,17 +27,6 @@ Distributed as-is; no warranty is given.
 // Declare sensor object
 SFE_ISL29125 RGB_sensor;
 
-void setup()
-{
-  // Initialize serial communication
-  Serial.begin(115200);
-
-  // Initialize the ISL29125 with simple configuration so it starts sampling
-  if (RGB_sensor.init())
-  {
-    Serial.println("Sensor Initialization Successful\n\r");
-  }
-}
 // Read sensor values for each color and returns true if material is steel, and false is material copper
 bool isItSteel()
 {
