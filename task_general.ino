@@ -6,7 +6,7 @@ void taskGeneral() {
   taskTurn(E_ROT, 0);
   
   //detected obstacle?
-  if (isWallDetected() {
+  if (isWallPresent()) {
     //yes - move around wall to destination
     followPath(aroundObstacle, AROUND_OBSTACLE);
   } else {
