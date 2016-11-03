@@ -17,6 +17,7 @@ float getLinearError(float xNode, float yNode) {
   
 }
 
+//Gets rotation error from node; requires update
 float getRotationError(float xNode, float yNode) {
   
   updateMarker();
@@ -25,16 +26,27 @@ float getRotationError(float xNode, float yNode) {
   float thetaTarget = atan((yNode - marker.y) / 
                            (xNode - marker.x));
   
-  //Get current orientation from RF readings (TODO: try finding avg)
+  return getRotationError(thetaTarget, false);
+
+}
+
+float getRotationError(float target) {
+
+  return getRotationError(target, true);
+}
+
+float getRotationError(float target, bool refreshMarker) {
+
+  if (refreshMarker)
+    updateMarker();
   
   sendf(&rf, "-- ~ Theta: ", marker.theta);
   
   //Calculate rotational error
-  float errorTheta = thetaTarget - marker.theta;
+  float errorTheta = target - marker.theta;
   sendf(&rf, "-- ~ Theta Error: ", errorTheta);
 
   return errorTheta;
-
 }
 
 void updateMarker() {

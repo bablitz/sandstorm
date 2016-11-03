@@ -1,10 +1,9 @@
-const float PWM_MAX = 255;
-const float PWM_MIN = -255;
-
 void drive(float left, float right) {
   //Set motor to power with constraints
-  tank.setLeftMotorPWM(constrain(left, PWM_MIN, PWM_MAX));
-  tank.setRightMotorPWM(constrain(right, PWM_MIN, PWM_MAX));
+  setMotorPWM(M_LEFT, left);
+  setMotorPWM(M_RIGHT, right);
+  //tank.setLeftMotorPWM(constrain(left, PWM_MIN, PWM_MAX));
+  //tank.setRightMotorPWM(constrain(right, PWM_MIN, PWM_MAX));
 }
 
 void driveForward(float pwm) {
