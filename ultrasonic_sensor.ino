@@ -18,7 +18,7 @@ float cm, meters;
 bool isWallPresent()
 {
   // Wall is at distance 1 meter from left edge of grid
-  if (getDistance() < 1.0) {
+  if (getAvgDistance(10) < 1.0) {
     return true;
   }
   else {
@@ -45,10 +45,21 @@ float getDistance() {
   
   // convert the time into a distance
   cm = 0.5 * duration / 29.1;
-  meters = cm * 100.0;
+  meters = cm / 100.0;
+  //sendf(&rf, "Detected distance of ", meters);
   
   return meters;
   Serial.println();
   delay(250);
+}
+
+float getAvgDistance(int count) {
+  float total = 0;
+  for (int i = 0; i < count; i++) {
+    total += getDistance();
+    delay(100);
+  }
+
+  return total / count;
 }
 

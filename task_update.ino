@@ -5,8 +5,8 @@ float getLinearError(float xNode, float yNode) {
   
   //TODO: add function to account for height of scanned image
   
-  sendf(&rf, "- ~ x: ", marker.x);
-  sendf(&rf, "- ~ y: ", marker.y);
+  //sendf(&rf, "- ~ x: ", marker.x);
+  //sendf(&rf, "- ~ y: ", marker.y);
   
   //Calculate linear error from target node
   float errorLine = sqrt(pow(xNode - marker.x, 2) + 
@@ -23,13 +23,14 @@ float getRotationError(float xNode, float yNode) {
   updateMarker();
 
   //Calculate target angle
-  float thetaTarget = atan((yNode - marker.y) / 
-                           (xNode - marker.x));
+  float thetaTarget = atan2((yNode - marker.y), 
+                            (xNode - marker.x));
   
   return getRotationError(thetaTarget, false);
 
 }
 
+//Gets rotation error from target rotation
 float getRotationError(float target) {
 
   return getRotationError(target, true);
@@ -40,10 +41,17 @@ float getRotationError(float target, bool refreshMarker) {
   if (refreshMarker)
     updateMarker();
   
-  sendf(&rf, "-- ~ Theta: ", marker.theta);
+  //sendf(&rf, "-- ~ Theta: ", marker.theta);
   
   //Calculate rotational error
   float errorTheta = target - marker.theta;
+
+  //Adjust error value to be withing -PI and PI
+  if (errorTheta > PI)
+    errorTheta -= 2 * PI;
+  if (errorTheta < -PI)
+    errorTheta += 2 * PI;
+  
   sendf(&rf, "-- ~ Theta Error: ", errorTheta);
 
   return errorTheta;

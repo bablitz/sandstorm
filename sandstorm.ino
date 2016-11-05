@@ -15,7 +15,7 @@
 #define PIN_RX 8
 #define PIN_TX 9
 #define PIN_TRIG1 11
-#define PIN_ECHO1 0
+#define PIN_ECHO1 10
 
 #define MARKER 104 //Number of RF Marker Board
 
@@ -38,12 +38,15 @@ int motorPin[M_COUNT][3] = {{7,   8,  9}, // Left Motor
 //path: a list of nodes for the robot to follow (x, y, error margin)
 //                                                X     Y     E
 #define WALL_BOTTOM 1 //Number of nodes in path
-float wallBottom[WALL_BOTTOM][3]          = {{ 0.50,  0.31, 0.10 }};
+float wallBottom[WALL_BOTTOM][3]          = {{ 1.50,  0.31, 0.13 }};
 #define AROUND_OBSTACLE 4 //Number of nodes in path
-float aroundObstacle[AROUND_OBSTACLE][3]    = {{ 0.50,  1.69, 0.10 }};
+float aroundObstacle[AROUND_OBSTACLE][3]    = {{ 1.50,  1.69, 0.13 },
+                                               { 2.50,  1.69, 0.13 },
+                                               { 2.50,  0.60, 0.13 },
+                                               { 3.30,  0.60, 0.15 }};
 #define THROUGH_OBSTACLE 2 //Number of nodes in path
-float throughObstacle[THROUGH_OBSTACLE][3]  = {{ 1.50,  0.31, 0.10 },
-                                               { 2.30,  0.60, 0.15 }};
+float throughObstacle[THROUGH_OBSTACLE][3]  = {{ 2.50,  0.31, 0.15 },
+                                               { 3.30,  0.60, 0.15 }};
 
 const float E_ROT = 0.3; //Margin of error for all rotations
 
@@ -52,10 +55,10 @@ const float E_ROT = 0.3; //Margin of error for all rotations
 const float ROT_KP = 300, //Rotational porportionality constant
             LIN_KP = 1000; //Linear porportionality constant
             
-const float DRIVE_TIME = 1000, //Amount of time(ms)the robot will drive
+const float DRIVE_TIME = 750, //Amount of time(ms)the robot will drive
             TURN_TIME = 500; //Amount of time(ms)the robot will turn
 
-const float RF_LATENCY = 1500; //Approximate latency of marker receiver
+const float RF_LATENCY = 1000; //Approximate latency of marker receiver
             
 SoftwareSerial sSerial(PIN_RX, PIN_TX);
 enes100::RfClient<SoftwareSerial> rf(&sSerial);
@@ -85,26 +88,28 @@ void setup() {
 
   delay(500);
   
-  //taskGeneral();
-  rgb.init();
+  taskGeneral();
+  //rgb.init();
 }
 
 void loop() {
   //TEST HERE:
 
-  unsigned int red = rgb.readRed();
-  Serial.print("Red: "); Serial.println(red);
-  stopMotors();
-  delay(1000);
-  
-  driveForward(-255);
-  delay(1000);
-
-  stopMotors();
-  delay(1000);
-  
-  driveForward(255);
-  delay(5000);
+  //unsigned int red = rgb.readRed();
+  //Serial.print("Red: "); Serial.println(red);
+//  stopMotors();
+//  delay(1000);
+//  
+//  driveForward(-255);
+//  delay(1000);
+//
+//  stopMotors();
+//  delay(1000);
+//  
+//  driveForward(255);
+//  delay(5000);
+  Serial.println(getAvgDistance(10));
+  delay(100);
 
   
 }
