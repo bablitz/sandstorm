@@ -88,7 +88,7 @@ void setup() {
 
   delay(500);
   
-  taskGeneral();
+  //taskGeneral();
   //rgb.init();
 }
 
@@ -97,18 +97,18 @@ void loop() {
 
   //unsigned int red = rgb.readRed();
   //Serial.print("Red: "); Serial.println(red);
-//  stopMotors();
-//  delay(1000);
-//  
-//  driveForward(-255);
-//  delay(1000);
-//
-//  stopMotors();
-//  delay(1000);
-//  
-//  driveForward(255);
-//  delay(5000);
-  Serial.println(getAvgDistance(10));
+  stopMotors();
+  delay(1000);
+  
+  driveForward(-255);
+  delay(1000);
+
+  stopMotors();
+  delay(1000);
+  
+  driveForward(255);
+  delay(5000);
+//  Serial.println(getAvgDistance(10));
   delay(100);
 
   
