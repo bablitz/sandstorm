@@ -25,6 +25,9 @@ float getRotationError(float xNode, float yNode) {
   //Calculate target angle
   float thetaTarget = atan2((yNode - marker.y), 
                             (xNode - marker.x));
+  //sendf(&rf, "- ~ xNode: ", xNode);
+  //sendf(&rf, "- ~ yNode: ", yNode);
+  //sendf(&rf, "- ~ Target Angle: ", thetaTarget);
   
   return getRotationError(thetaTarget, false);
 
@@ -38,10 +41,9 @@ float getRotationError(float target) {
 
 float getRotationError(float target, bool refreshMarker) {
 
-  if (refreshMarker)
-    updateMarker();
+  if (refreshMarker) updateMarker();
   
-  //sendf(&rf, "-- ~ Theta: ", marker.theta);
+  //sendf(&rf, "-- ~ Target Angle: ", target);
   
   //Calculate rotational error
   float errorTheta = target - marker.theta;
@@ -52,7 +54,7 @@ float getRotationError(float target, bool refreshMarker) {
   if (errorTheta < -PI)
     errorTheta += 2 * PI;
   
-  sendf(&rf, "-- ~ Theta Error: ", errorTheta);
+  //sendf(&rf, "-- ~ Theta Error: ", errorTheta);
 
   return errorTheta;
 }
