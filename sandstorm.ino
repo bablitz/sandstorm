@@ -30,7 +30,7 @@
 //                          IN1  IN2 PWM
 int motorPin[M_COUNT][3] = {{7,   8,  9}, // Left Motor
                             {12, 11, 10}, // Right Motor
-                            {A2,  A3,  5}};// Lift Motor
+                            {5,   6, -1}};// Lift Motor
 
 #define X 0 //The x coordinate of a node
 #define Y 1 //The y coordinate of a node
@@ -55,9 +55,10 @@ const float E_ROT = 0.3; //Margin of error for all rotations
 const float ROT_KP = 300, //Rotational porportionality constant
             LIN_KP = 1000; //Linear porportionality constant
             
-const float DRIVE_TIME = 2000, //Amount of time(ms)the robot will drive
-            TURN_TIME = 1500; //Amount of time(ms)the robot will turn
-
+const float DRIVE_TIME = 2000, //Amount of time(ms) the robot will drive
+            TURN_TIME = 1500, //Amount of time(ms) the robot will turn
+            LIFT_TIME = 8000; //Amount of time(ms) the lift raises
+            
 const float RF_LATENCY = 1000; //Approximate latency of marker receiver
             
 SoftwareSerial sSerial(PIN_RX, PIN_TX);
@@ -87,6 +88,8 @@ void setup() {
   Serial.println("Team Sandstorm is Connected");
 
   delay(500);
+
+  raiseLift(LIFT_TIME);
   
   taskGeneral();
   //rgb.init();

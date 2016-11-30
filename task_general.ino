@@ -21,3 +21,10 @@ void taskGeneral() {
   //transmit material/mass
 }
 
+void taskManipulation() {
+  driveForward(255);
+  delay(5000);
+  stopMotors();
+  raiseLift(LIFT_TIME);
+}
+
