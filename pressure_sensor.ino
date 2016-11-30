@@ -25,13 +25,13 @@ const float VCC = 4.98; // Measured voltage of Ardunio 5V line
 // For now try out 3.3k resistor
 const float R_DIV = 3230.0; // Measured resistance of 3.3k resistor
 
-void setup() 
+void setupFunction() 
 {
   Serial.begin(9600);
   pinMode(FSR_PIN, INPUT);
 }
 
-void loop() 
+void loopFunction() 
 {
   int fsrADC = analogRead(FSR_PIN);
   // If the FSR has no pressure, the resistance will be
