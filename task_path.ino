@@ -23,12 +23,12 @@ void followPath(float path[][3], int pathLength) {
     }
   }
 
-  sendf(&rf, "OSV has reached its final destination!");
+  sendf(&rf, "OSV has finished its path of length ", pathLength);
 }
 
 void taskTurn(float margin, float path[][3], int node) {
   float rotationError = getRotationError(path[node][X], path[node][Y]);
-  while (rotationError >= margin || rotationError <= -margin) {
+  while ((rotationError >= margin || rotationError <= -margin)) { //&& (2 * PI - rotationError >= margin || -2 * PI + rotationError <= -margin))  {
     
     //Execute turn
     sendf(&rf, "--Starting Turn with error of ", rotationError);
