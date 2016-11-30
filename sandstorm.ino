@@ -30,7 +30,7 @@
 //                          IN1  IN2 PWM
 int motorPin[M_COUNT][3] = {{7,   8,  9}, // Left Motor
                             {12, 11, 10}, // Right Motor
-                            {13,  6,  5}};// Lift Motor
+                            {A2,  A3,  5}};// Lift Motor
 
 #define X 0 //The x coordinate of a node
 #define Y 1 //The y coordinate of a node
@@ -38,7 +38,7 @@ int motorPin[M_COUNT][3] = {{7,   8,  9}, // Left Motor
 //path: a list of nodes for the robot to follow (x, y, error margin)
 //                                                X     Y     E
 #define WALL_BOTTOM 1 //Number of nodes in path
-float wallBottom[WALL_BOTTOM][3]          = {{ 0.50,  0.31, 0.13 }};
+float wallBottom[WALL_BOTTOM][3]            = {{ 0.50,  0.31, 0.13 }};
 #define AROUND_OBSTACLE 4 //Number of nodes in path
 float aroundObstacle[AROUND_OBSTACLE][3]    = {{ 0.50,  1.69, 0.13 },
                                                { 1.50,  1.69, 0.13 },
