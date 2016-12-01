@@ -29,19 +29,19 @@ bool isWallPresent()
 
 
 // getDistance returns a number in meters
-float getDistance() {
+float getDistance(Pin_Trig, Pin_Echo) {
   // The sensor is triggered by a HIGH pulse of 10 or more microseconds.
   // Give a short LOW pulse beforehand to ensure a clean HIGH pulse:
-  digitalWrite(PIN_TRIG1, LOW);
+  digitalWrite(PIN_TRIG, LOW);
   delayMicroseconds(5);
-  digitalWrite(PIN_TRIG1, HIGH);
+  digitalWrite(PIN_TRIG, HIGH);
   delayMicroseconds(10);
-  digitalWrite(PIN_TRIG1, LOW);
+  digitalWrite(PIN_TRIG, LOW);
   // Read the signal from the sensor: a HIGH pulse whose
   // duration is the time (in microseconds) from the sending
   // of the ping to the reception of its echo off of an object.
-  pinMode(PIN_ECHO1, INPUT);
-  duration = pulseIn(PIN_ECHO1, HIGH);
+  pinMode(PIN_ECHO, INPUT);
+  duration = pulseIn(PIN_ECHO, HIGH);
   
   // convert the time into a distance
   cm = 0.5 * duration / 29.1;
