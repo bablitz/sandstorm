@@ -14,8 +14,10 @@
 //Pin Definitions
 #define PIN_RX 2
 #define PIN_TX 13
-#define PIN_TRIG1 11
-#define PIN_ECHO1 10
+#define PIN_TRIGL 4
+#define PIN_ECHOL A1
+#define PIN_TRIGR 3
+#define PIN_ECHOR A0
 
 #define MARKER 104 //Number of RF Marker Board
 
@@ -77,8 +79,12 @@ void setup() {
   Serial.begin(9600);
   pinMode(PIN_RX, INPUT);
   pinMode(PIN_TX, OUTPUT);
-  pinMode(PIN_TRIG1, OUTPUT);
-  pinMode(PIN_ECHO1, INPUT);
+  pinMode(PIN_TRIGL, OUTPUT);
+  pinMode(PIN_ECHOL, INPUT);
+  pinMode(PIN_TRIGR, OUTPUT);
+  pinMode(PIN_ECHOR, INPUT);
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
   
   delay(1000);
   
@@ -86,21 +92,24 @@ void setup() {
 
   sendf(&rf, "Team Sandstorm is Connected");
   Serial.println("Team Sandstorm is Connected");
+  rgb.init();
 
   delay(500);
 
-  raiseLift(LIFT_TIME);
-  
-  taskGeneral();
-  //rgb.init();
+  taskManipulation();
+  //taskGeneral();
 }
 
 void loop() {
   //TEST HERE:
 
-  //driveForward(-255);
-  //unsigned int red = rgb.readRed();
-  //Serial.print("Red: "); Serial.println(red);
+//  driveForward(-255);
+  int red = rgb.readRed(),
+               blue = rgb.readBlue();
+  
+  Serial.print("Red: "); Serial.println(red);
+  sendf(&rf, "Red Value: ", red);
+  delay(1000);
 //  stopMotors();
 //  delay(1000);
 //  
