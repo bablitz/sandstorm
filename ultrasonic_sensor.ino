@@ -29,7 +29,8 @@ bool isWallPresent()
 
 
 // getDistance returns a number in meters
-float getDistance(Pin_Trig, Pin_Echo) {
+float getDistance(int PIN_TRIG,int PIN_ECHO)
+{
   // The sensor is triggered by a HIGH pulse of 10 or more microseconds.
   // Give a short LOW pulse beforehand to ensure a clean HIGH pulse:
   digitalWrite(PIN_TRIG, LOW);
@@ -53,10 +54,10 @@ float getDistance(Pin_Trig, Pin_Echo) {
   delay(250);
 }
 
-float getAvgDistance(int count) {
+float getAvgDistance(int count, int PIN_TRIG, int PIN_ECHO) {
   float total = 0;
   for (int i = 0; i < count; i++) {
-    total += getDistance();
+    float total += getDistance(int PIN_TRIG, int PIN_ECHO);
     delay(100);
   }
 
