@@ -7,7 +7,7 @@ void taskGeneral() {
   taskTurn(E_ROT, 0);
   
   //detected obstacle?
-  if (isWallPresent(PIN_TRIGL, PIN_ECHOL)) {
+  if (isWallPresent(PIN_TRIGR, PIN_ECHOR)) {
     sendf(&rf, "***OBSTACLE DETECTED***");
     //yes - move around wall to destination
     followPath(aroundObstacle, AROUND_OBSTACLE);
@@ -19,35 +19,5 @@ void taskGeneral() {
   sendf(&rf, "***REACHED MATERIAL SITE***");
   //lift obstacle
   //transmit material/mass
-}
-
-void taskManipulation() {
-  //Adjust orientation to face obstacle
-  while(!isWallPresent(PIN_TRIGL, PIN_ECHOL)) {
-    turnLeft(255);
-    delay(750);
-    stopMotors();
-  }
-  turnLeft(-255);
-  delay(750);
-  
-  
-
-  //Drive forward until --> debris detected or time out
-
-  //Debris not detected?
-    //Drive back
-    //Reorient
-    //Drive forward
-
-  //Lift
-
-  //Transmit material
-  
-  
-  driveForward(255);
-  delay(5000);
-  stopMotors();
-  raiseLift(LIFT_TIME);
 }
 

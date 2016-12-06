@@ -1,9 +1,13 @@
+//motor_drive.ino
+//Authors: Bennett Blitz, Tom Condrom
+//ENES100-0602
+
+//Description: Uses motor_control.ino for basic drive/lift functions
+
 void drive(float left, float right) {
   //Set motor to power with constraints
   setMotorPWM(M_LEFT, left);
   setMotorPWM(M_RIGHT, right);
-  //tank.setLeftMotorPWM(constrain(left, PWM_MIN, PWM_MAX));
-  //tank.setRightMotorPWM(constrain(right, PWM_MIN, PWM_MAX));
 }
 
 void driveForward(float pwm) {
@@ -40,4 +44,10 @@ void driveToNode(float duration, float linearError) {
   
   //Reset motor power to zero
   stopMotors();
+}
+
+void raiseLift(int liftTime) {
+  setMotorPWM(M_LIFT, 255);
+  delay(liftTime);
+  setMotorPWM(M_LIFT, 0);
 }

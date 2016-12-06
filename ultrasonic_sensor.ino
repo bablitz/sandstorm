@@ -1,24 +1,10 @@
-/*
- * created by Rui Santos, http://randomnerdtutorials.com
- * 
- * Complete Guide for Ultrasonic Sensor HC-SR04
- *
-    Ultrasonic sensor Pins:
-        VCC: +5VDC
-        Trig : Trigger (INPUT) - Pin11      Might be different hard for me to see on schematic diagram
-        Echo: Echo (OUTPUT) - Analog Pin 0
-        GND: GND
- */
- 
-int trigPin = 11;    //Trig - green Jumper
-int echoPin = 0;    //Echo - yellow Jumper   (Analog Pin)
 long duration;
 float cm, meters;
 
-bool isWallPresent()
+bool isWallPresent(int trig, int echo)
 {
   // Wall is at distance 1 meter from left edge of grid
-  if (getAvgDistance(10) < 1.0) {
+  if (getAvgDistance(10, trig, echo) < 1.0) {
     return true;
   }
   else {
@@ -29,20 +15,20 @@ bool isWallPresent()
 
 
 // getDistance returns a number in meters
-float getDistance(int PIN_TRIG,int PIN_ECHO)
+float getDistance(int trig,int echo)
 {
   // The sensor is triggered by a HIGH pulse of 10 or more microseconds.
   // Give a short LOW pulse beforehand to ensure a clean HIGH pulse:
-  digitalWrite(PIN_TRIG, LOW);
+  digitalWrite(trig, LOW);
   delayMicroseconds(5);
-  digitalWrite(PIN_TRIG, HIGH);
+  digitalWrite(trig, HIGH);
   delayMicroseconds(10);
-  digitalWrite(PIN_TRIG, LOW);
+  digitalWrite(trig, LOW);
   // Read the signal from the sensor: a HIGH pulse whose
   // duration is the time (in microseconds) from the sending
   // of the ping to the reception of its echo off of an object.
-  pinMode(PIN_ECHO, INPUT);
-  duration = pulseIn(PIN_ECHO, HIGH);
+  pinMode(echo, INPUT);
+  duration = pulseIn(echo, HIGH);
   
   // convert the time into a distance
   cm = 0.5 * duration / 29.1;
@@ -54,10 +40,10 @@ float getDistance(int PIN_TRIG,int PIN_ECHO)
   delay(250);
 }
 
-float getAvgDistance(int count, int PIN_TRIG, int PIN_ECHO) {
+float getAvgDistance(int count, int trig, int echo) {
   float total = 0;
   for (int i = 0; i < count; i++) {
-    float total += getDistance(int PIN_TRIG, int PIN_ECHO);
+    total += getDistance(trig, echo);
     delay(100);
   }
 

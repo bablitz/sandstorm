@@ -12,14 +12,15 @@
 //---------------------------Definitions--------------------------
 
 //Pin Definitions
-#define PIN_RX 2
-#define PIN_TX 13
+#define PIN_RX 2 //(Yellow)
+#define PIN_TX 13 //(Green)
 #define PIN_TRIGL 4
 #define PIN_ECHOL A1
 #define PIN_TRIGR 3
 #define PIN_ECHOR A0
+#define PIN_CONDUCT A3
 
-#define MARKER 104 //Number of RF Marker Board
+#define MARKER 111 //Number of RF Marker Board
 
 #define M_LEFT 0
 #define M_RIGHT 1
@@ -45,10 +46,10 @@ float wallBottom[WALL_BOTTOM][3]            = {{ 0.50,  0.31, 0.13 }};
 float aroundObstacle[AROUND_OBSTACLE][3]    = {{ 0.50,  1.69, 0.13 },
                                                { 1.50,  1.69, 0.13 },
                                                { 1.50,  0.60, 0.13 },
-                                               { 2.30,  0.60, 0.15 }};
+                                               { 2.30,  0.60, 0.20 }};
 #define THROUGH_OBSTACLE 2 //Number of nodes in path
 float throughObstacle[THROUGH_OBSTACLE][3]  = {{ 1.50,  0.31, 0.15 },
-                                               { 2.30,  0.60, 0.15 }};
+                                               { 2.30,  0.60, 0.20 }};
 
 const float E_ROT = 0.3; //Margin of error for all rotations
 
@@ -57,17 +58,15 @@ const float E_ROT = 0.3; //Margin of error for all rotations
 const float ROT_KP = 300, //Rotational porportionality constant
             LIN_KP = 1000; //Linear porportionality constant
             
-const float DRIVE_TIME = 2000, //Amount of time(ms) the robot will drive
+const float DRIVE_TIME = 5000, //Amount of time(ms) the robot will drive
             TURN_TIME = 1500, //Amount of time(ms) the robot will turn
-            LIFT_TIME = 8000; //Amount of time(ms) the lift raises
+            LIFT_TIME = 12000; //Amount of time(ms) the lift raises
             
-const float RF_LATENCY = 1000; //Approximate latency of marker receiver
+const float RF_LATENCY = 500; //Approximate latency of marker receiver
             
 SoftwareSerial sSerial(PIN_RX, PIN_TX);
 enes100::RfClient<SoftwareSerial> rf(&sSerial);
 enes100::Marker marker;
-
-DFRTank tank;
 
 SFE_ISL29125 rgb;
 
@@ -83,8 +82,8 @@ void setup() {
   pinMode(PIN_ECHOL, INPUT);
   pinMode(PIN_TRIGR, OUTPUT);
   pinMode(PIN_ECHOR, INPUT);
-  pinMode(5, OUTPUT);
-  pinMode(6, OUTPUT);
+  //pinMode(5, OUTPUT);
+  //pinMode(6, OUTPUT);
   
   delay(1000);
   
@@ -95,21 +94,27 @@ void setup() {
   rgb.init();
 
   delay(500);
-
-  taskManipulation();
+  
   //taskGeneral();
+  taskManipulation();
+  //driveForward(-255);
+  //delay(4000);
+  //stopMotors();
+  //raiseLift(LIFT_TIME);
+  
 }
 
 void loop() {
   //TEST HERE:
 
 //  driveForward(-255);
-  int red = rgb.readRed(),
-               blue = rgb.readBlue();
+//  int red = rgb.readRed(),
+//            blue = rgb.readBlue();
   
-  Serial.print("Red: "); Serial.println(red);
-  sendf(&rf, "Red Value: ", red);
-  delay(1000);
+//  Serial.print("Red: "); Serial.println(red);
+//  sendf(&rf, "Red Value: ", red);
+//  delay(100);
+//  Serial.println(analogRead(A3));
 //  stopMotors();
 //  delay(1000);
 //  
