@@ -20,7 +20,7 @@
 #define PIN_ECHOR A0
 #define PIN_CONDUCT A3
 
-#define MARKER 111 //Number of RF Marker Board
+#define MARKER 3 //Number of RF Marker Board
 
 #define M_LEFT 0
 #define M_RIGHT 1
@@ -41,15 +41,15 @@ int motorPin[M_COUNT][3] = {{7,   8,  9}, // Left Motor
 //path: a list of nodes for the robot to follow (x, y, error margin)
 //                                                X     Y     E
 #define WALL_BOTTOM 1 //Number of nodes in path
-float wallBottom[WALL_BOTTOM][3]            = {{ 0.50,  0.31, 0.13 }};
+float wallBottom[WALL_BOTTOM][3]            = {{ 0.50,  0.31, 0.20 }};
 #define AROUND_OBSTACLE 4 //Number of nodes in path
-float aroundObstacle[AROUND_OBSTACLE][3]    = {{ 0.50,  1.69, 0.13 },
-                                               { 1.50,  1.69, 0.13 },
-                                               { 1.50,  0.60, 0.13 },
-                                               { 2.30,  0.60, 0.20 }};
+float aroundObstacle[AROUND_OBSTACLE][3]    = {{ 0.50,  1.69, 0.20 },
+                                               { 1.50,  1.69, 0.20 },
+                                               { 1.50,  0.60, 0.25 },
+                                               { 2.30,  0.65, 0.35 }};
 #define THROUGH_OBSTACLE 2 //Number of nodes in path
-float throughObstacle[THROUGH_OBSTACLE][3]  = {{ 1.50,  0.31, 0.15 },
-                                               { 2.30,  0.60, 0.20 }};
+float throughObstacle[THROUGH_OBSTACLE][3]  = {{ 1.50,  0.31, 0.25 },
+                                               { 2.30,  0.65, 0.35 }};
 
 const float E_ROT = 0.3; //Margin of error for all rotations
 
@@ -94,8 +94,12 @@ void setup() {
   rgb.init();
 
   delay(500);
-  
-  //taskGeneral();
+//  while(true) {
+//    //sendf(&rf, "Distance: ", getAvgDistance(10, PIN_TRIGR, PIN_ECHOR));
+//    Serial.println(getAvgDistance(1, PIN_TRIGR, PIN_ECHOR));
+//    delay(500);
+//  }
+  taskGeneral();
   taskManipulation();
   //driveForward(-255);
   //delay(4000);
