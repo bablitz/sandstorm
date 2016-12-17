@@ -8,7 +8,7 @@ sandstorm 			- definitions, initialization
 
 ##Sensor
 
-sensor_ultrasonic 	- ultrasonic sensor computations
+ultrasonic_sensor 	- ultrasonic sensor computations
 
 ##Motor
 
