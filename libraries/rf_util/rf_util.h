@@ -1,3 +1,8 @@
+//rf_util.h
+//Author: Bennett Blitz
+//ENES100-0602
+//Description: Library for easier rf communication
+
 #ifndef RF_UTIL_H_
 #define RF_UTIL_H_
 

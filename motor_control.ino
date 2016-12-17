@@ -35,11 +35,3 @@ void stopMotorSoft(int motor) {
   setMotorPWM(motor, 0);
 }
 
-//NOT NECESSARY FOR OUR MOTORS
-//void stopMotorHard(int motor) {
-//  digitalWrite(motorPin[motor][CTRL_IN1], 1);
-//  digitalWrite(motorPin[motor][CTRL_IN2], 0);
-//  if (motorPin[motor][CTRL_PWM] >= 0)
-//    digitalWrite(motorPin[motor][CTRL_PWM], 0);
-//}
-

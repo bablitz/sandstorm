@@ -1,3 +1,9 @@
+//ultrasonic_sensor.ino
+//Authors: Bennett Blitz, Tom Condrom
+//ENES100-0602
+
+//Description: Ultrasonic sensor code for use with HC-SR04
+
 long duration;
 float cm, meters;
 

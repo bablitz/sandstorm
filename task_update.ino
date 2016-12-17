@@ -1,12 +1,13 @@
+//task_update.ino
+//Authors: Bennett Blitz, Tom Condrom
+//ENES100-0602
 
+//Description: Code involving receiving data from rf and error calculation
+
+//Get the positive distance from the given node coordinates
 float getLinearError(float xNode, float yNode) {
 
   updateMarker();
-  
-  //TODO: add function to account for height of scanned image
-  
-  //sendf(&rf, "- ~ x: ", marker.x);
-  //sendf(&rf, "- ~ y: ", marker.y);
   
   //Calculate linear error from target node
   float errorLine = sqrt(pow(xNode - marker.x, 2) + 
@@ -25,9 +26,6 @@ float getRotationError(float xNode, float yNode) {
   //Calculate target angle
   float thetaTarget = atan2((yNode - marker.y), 
                             (xNode - marker.x));
-  //sendf(&rf, "- ~ xNode: ", xNode);
-  //sendf(&rf, "- ~ yNode: ", yNode);
-  //sendf(&rf, "- ~ Target Angle: ", thetaTarget);
   
   return getRotationError(thetaTarget, false);
 
@@ -39,11 +37,11 @@ float getRotationError(float target) {
   return getRotationError(target, true);
 }
 
+//Get rotation error from a target angle
+//  if refreshMarker flag is true, updateMarker is called
 float getRotationError(float target, bool refreshMarker) {
 
   if (refreshMarker) updateMarker();
-  
-  //sendf(&rf, "-- ~ Target Angle: ", target);
   
   //Calculate rotational error
   float errorTheta = target - marker.theta;
@@ -53,12 +51,11 @@ float getRotationError(float target, bool refreshMarker) {
     errorTheta -= 2 * PI;
   if (errorTheta < -PI)
     errorTheta += 2 * PI;
-  
-  //sendf(&rf, "-- ~ Theta Error: ", errorTheta);
 
   return errorTheta;
 }
 
+//Update maker data after a constant delay
 void updateMarker() {
 
   //Account for latency of RF sensor

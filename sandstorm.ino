@@ -1,7 +1,8 @@
-
-//Sandstorm.ino
+//sandstorm.ino
 //Authors: Bennett Blitz, Tom Condrom
 //ENES100-0602
+
+//Description: Starting file, contains global definitions and initialization code
 
 #include <dfr_tank.h>
 #include <SoftwareSerial.h>
@@ -20,7 +21,7 @@
 #define PIN_ECHOR A0
 #define PIN_CONDUCT A3
 
-#define MARKER 3 //Number of RF Marker Board
+#define MARKER 21 //Number of RF Marker Board
 
 #define M_LEFT 0
 #define M_RIGHT 1
@@ -43,8 +44,8 @@ int motorPin[M_COUNT][3] = {{7,   8,  9}, // Left Motor
 #define WALL_BOTTOM 1 //Number of nodes in path
 float wallBottom[WALL_BOTTOM][3]            = {{ 0.50,  0.31, 0.20 }};
 #define AROUND_OBSTACLE 4 //Number of nodes in path
-float aroundObstacle[AROUND_OBSTACLE][3]    = {{ 0.50,  1.69, 0.20 },
-                                               { 1.50,  1.69, 0.20 },
+float aroundObstacle[AROUND_OBSTACLE][3]    = {{ 0.50,  1.75, 0.20 },
+                                               { 1.50,  1.75, 0.20 },
                                                { 1.50,  0.60, 0.25 },
                                                { 2.30,  0.65, 0.35 }};
 #define THROUGH_OBSTACLE 2 //Number of nodes in path
@@ -68,22 +69,20 @@ SoftwareSerial sSerial(PIN_RX, PIN_TX);
 enes100::RfClient<SoftwareSerial> rf(&sSerial);
 enes100::Marker marker;
 
-SFE_ISL29125 rgb;
-
 //----------------------------------------------------------------
 
 void setup() {
   
   sSerial.begin(9600);
   Serial.begin(9600);
+
+  //Initialize pins
   pinMode(PIN_RX, INPUT);
   pinMode(PIN_TX, OUTPUT);
   pinMode(PIN_TRIGL, OUTPUT);
   pinMode(PIN_ECHOL, INPUT);
   pinMode(PIN_TRIGR, OUTPUT);
   pinMode(PIN_ECHOR, INPUT);
-  //pinMode(5, OUTPUT);
-  //pinMode(6, OUTPUT);
   
   delay(1000);
   
@@ -91,47 +90,12 @@ void setup() {
 
   sendf(&rf, "Team Sandstorm is Connected");
   Serial.println("Team Sandstorm is Connected");
-  rgb.init();
 
   delay(500);
-//  while(true) {
-//    //sendf(&rf, "Distance: ", getAvgDistance(10, PIN_TRIGR, PIN_ECHOR));
-//    Serial.println(getAvgDistance(1, PIN_TRIGR, PIN_ECHOR));
-//    delay(500);
-//  }
-  taskGeneral();
-  taskManipulation();
-  //driveForward(-255);
-  //delay(4000);
-  //stopMotors();
-  //raiseLift(LIFT_TIME);
+  
+  taskPathing();      //Manages pathing tasks
+  taskManipulation(); //Executes debris manipulation
   
 }
 
-void loop() {
-  //TEST HERE:
-
-//  driveForward(-255);
-//  int red = rgb.readRed(),
-//            blue = rgb.readBlue();
-  
-//  Serial.print("Red: "); Serial.println(red);
-//  sendf(&rf, "Red Value: ", red);
-//  delay(100);
-//  Serial.println(analogRead(A3));
-//  stopMotors();
-//  delay(1000);
-//  
-//  driveForward(-255);
-//  delay(1000);
-//
-//  stopMotors();
-//  delay(1000);
-//  
-//  driveForward(255);
-//  delay(5000);
-////  Serial.println(getAvgDistance(10));
-//  delay(100);
-
-  
-}
+void loop() {}
